@@ -1,59 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Mohit's ADV Project</title>
+<html>
+  <head>
+    <title>Vega-Lite Bar Chart</title>
+    <meta charset="utf-8" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/white.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.3.2/build/vega.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.3/build/vega-lite.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@4.0.0-rc1/build/vega-embed.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
-
-    <link rel="stylesheet/less" type="text/css" href="styles.less" />
-
-</head>
-<body>
-
-    <h1>Hello there!</h1>
-
+    <style media="screen">
+      /* Add space between Vega-Embed links  */
+      .vega-actions a {
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Template for Embedding Vega-Lite Visualization</h1>
+    <!-- Container for the visualization -->
     <div id="vis"></div>
+    <div id="vis2"></div>
 
-    <!-- This is from the example embedded vega-lite demo -->
-    <script type="text/javascript">
-        var yourVlSpec = {
-            $schema: 'https://vega.github.io/schema/vega-lite/v2.0.json',
-            description: 'A simple bar chart with embedded data.',
-            data: {
-                values: [
-                    {a: 'A', b: 28},
-                    {a: 'B', b: 55},
-                    {a: 'C', b: 43},
-                    {a: 'D', b: 91},
-                    {a: 'E', b: 81},
-                    {a: 'F', b: 53},
-                    {a: 'G', b: 19},
-                    {a: 'H', b: 87},
-                    {a: 'I', b: 52}
-                ]
-            },
-            mark: 'bar',
-            encoding: {
-                x: {field: 'a', type: 'ordinal'},
-                y: {field: 'b', type: 'quantitative'}
+    <script>
+      // Assign the specification to a local variable vlSpec.
+      var vlSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+        "data": {"url": "https://raw.githubusercontent.com/fivethirtyeight/data/master/food-world-cup/food-world-cup-data.csv"},
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "Age",
+            "type": "nominal"
+        },
+        "y": {
+            "aggregate": "count",
+            "field": "*",
+            "type": "quantitative"
+        },
+        "color": {
+            "field": "Generally speaking, how would you rate your level of knowledge�of cuisines from different parts of the world?",
+            "type": "nominal",
+            "title": "Cusine Knowledge"
+        }
+    }
+      };
+
+
+var vlSpec2 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+        data: {
+          values: [
+            {a: 'C', b: 2},
+            {a: 'C', b: 7},
+            {a: 'C', b: 4},
+            {a: 'D', b: 1},
+            {a: 'D', b: 2},
+            {a: 'D', b: 6},
+            {a: 'E', b: 8},
+            {a: 'E', b: 4},
+            {a: 'E', b: 7}
+          ]
+        },
+        mark: 'bar',
+        encoding: {
+          y: {field: 'a', type: 'nominal'},
+          x: {
+            aggregate: 'average',
+            field: 'b',
+            type: 'quantitative',
+            axis: {
+              title: 'Average of b'
             }
-        };
-        vegaEmbed('#vis', yourVlSpec);
+          }
+        }
+      };
+
+
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed('#vis', vlSpec);
+      vegaEmbed('#vis2', vlSpec2);
+
     </script>
-    
-<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
-</body>
+  </body>
 </html>
