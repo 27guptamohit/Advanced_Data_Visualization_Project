@@ -19,105 +19,34 @@
     <h1>Template for Embedding Vega-Lite Visualization</h1>
     <!-- Container for the visualization -->
     <div id="vis"></div>
-    <div id="vis2"></div>
-    <div id="vis3"></div>
+
 
     <script>
       // Assign the specification to a local variable vlSpec.
       var vlSpec = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
-        "data": {"url": "https://raw.githubusercontent.com/fivethirtyeight/data/master/food-world-cup/food-world-cup-data.csv"},
-    "mark": "bar",
-    "encoding": {
-        "x": {
-            "field": "Age",
-            "type": "nominal"
-        },
-        "y": {
-            "aggregate": "count",
-            "field": "*",
-            "type": "quantitative"
-        },
-        "color": {
-            "field": "Generally speaking, how would you rate your level of knowledge�of cuisines from different parts of the world?",
-            "type": "nominal",
-            "title": "Cusine Knowledge"
-        }
-    }
-      };
-
-
-var vlSpec2 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
-        "data": {"url": "https://raw.githubusercontent.com/fivethirtyeight/data/master/food-world-cup/food-world-cup-data.csv"},
-    
-    "hconcat":[
-    {
-        "facet": {"row": {"field": "Generally speaking, how would you rate your level of knowledge�of cuisines from different parts of the world?", "type": "nominal", "title": "Cusine Knowledge"}},
-        "spec": {
-            "mark": "bar",
-            "encoding": {
-                "x": {
-                    "bin": "true",
-                    "field": "Age",
-                    "type": "nominal"
+        $schema: 'https://vega.github.io/schema/vega-lite/v3.0.json',
+                description: 'A simple bar chart with embedded data.',
+                data: {
+                    name: 'champaign_zoning', url: './champaign.topojson',
+                    "format": {
+                        "type": "topojson",
+                        "feature": "Zoning"
+                    }
                 },
-                "y": {"aggregate": "count", "type": "quantitative"}
-            }
-        }
-    },
-    {
-        "mark": "bar",
-        "encoding": {
-            "x": {
-                "field": "Age",
-                "type": "nominal"
-            },
-            "y": {
-                "aggregate": "count",
-                "field": "*",
-                "type": "quantitative"
-            },
-            "color": {
-                "field": "Generally speaking, how would you rate your level of knowledge�of cuisines from different parts of the world?",
-                "type": "nominal",
-                "title": "Cusine Knowledge"
-            }
-        }
-    }
-    ]
+                "mark": "geoshape",
+                "projection": {
+                    "type": "albersUsa"
+                },
+                "encoding": {
+                    "color": {"field": "properties.zoning_code", "type": "nominal"}
+                }
       };
 
 
-      var vlSpec3 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
-        "data": {"url": "https://raw.githubusercontent.com/fivethirtyeight/data/master/food-world-cup/food-world-cup-data.csv"},
-    "transform": [
-    {
-        "aggregate": [{
-            "op": "count",
-            "field": "Please rate how much you like the traditional cuisine of Algeria:",
-            "as": "Algeria"
-        }],
-        "groupby": ["Generally speaking, how would you rate your level of knowledge�of cuisines from different parts of the world?"]
-    }
-    ],
-    "mark": "bar",
-    "encoding": {
-        "x": { "field": "Generally speaking, how would you rate your level of knowledge�of cuisines from different parts of the world?", "type": "nominal",  "title" : "Level" },
-        "y": { "field": "Algeria", "type": "quantitative" }
-    }
-    
-    };
 
 
-
-    
       // Embed the visualization in the container with id `vis`
       vegaEmbed('#vis', vlSpec);
-      vegaEmbed('#vis2', vlSpec2);
-      vegaEmbed('#vis3', vlSpec2);
-
     </script>
   </body>
 </html>
