@@ -21,7 +21,7 @@
     <div id="vis"></div>
 
 
-    <script>
+    <script type = "text/javascript">
       // Assign the specification to a local variable vlSpec.
       var vlSpec = {
         $schema: 'https://vega.github.io/schema/vega-lite/v3.0.json',
@@ -46,7 +46,11 @@
 
 
       // Embed the visualization in the container with id `vis`
-      vegaEmbed('#vis', vlSpec);
+      var embedded = vegaEmbed('#vis', vlSpec);
+
+
     </script>
+
+
   </body>
 </html>
